@@ -1,6 +1,11 @@
+:root{
+    --uottawa-color: rgba(128,22,14,1);
+}
+
 body{
     min-width: 400px;
 }
+
 #overlay {
     position: fixed;
     top: 0;
@@ -89,6 +94,7 @@ button {
     padding: 10px 15px;
     border: none;
     background: #007bff;
+    background-color: var(--uottawa-color);
     color: white;
     cursor: pointer;
     border-radius: 5px;
