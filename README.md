@@ -13,10 +13,13 @@ uOCal is a web extension that parses you uOZone schedule and generates an iCal (
 - Private by design: all computation happens locally, with no servers or third-party processing involved
 - Free and open-source
 
-Below is a GIF of the extension in action:
+Below is a capture of the extension in action:
+<p align="center">
+  <img src="screenshots/Capture.gif" alt="Popup Screenshot" width="1080"/>
+</p>
 
 
-[!NOTE]
+> [!NOTE]
 > For privacy reasons, in the capture above:
 > - Course codes and class names are obfuscated (e.g. `CXX 4XXX` instead of the actual course code).
 > - Locations/addresses are also partially obfuscated for privacy.
@@ -89,7 +92,7 @@ The latest version is already built and included in the `dist/` directory.
 
 If you'd like to build it yourself or contribute to the development and maintenance, check out the section below.
 
-[!TIP]
+> [!TIP]
 > If you only want to use the extension, the [Options](#options) and [Installation](#installation) sections are all that you need.
 
 ### Prerequisites
