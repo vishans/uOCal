@@ -1,5 +1,6 @@
 
 // --- overhaul ----
+import { DateTime } from 'luxon';
 
 export class Class{
     constructor(className){
@@ -390,3 +391,29 @@ export function parseAllClassNames(text){
 
     return names;
 }
+
+// not used
+export function toICSLocalDateTimeString(date) {
+    const pad = n => String(n).padStart(2, '0');
+
+    return (
+        date.getFullYear() +
+        pad(date.getMonth() + 1) +
+        pad(date.getDate()) +
+        'T' +
+        pad(date.getHours()) +
+        pad(date.getMinutes()) +
+        pad(date.getSeconds())
+    );
+}
+
+export function toFloatingLuxon(jsDate) {
+    return DateTime.fromObject({
+        year: jsDate.getFullYear(),
+        month: jsDate.getMonth() + 1,
+        day: jsDate.getDate(),
+        hour: jsDate.getHours(),
+        minute: jsDate.getMinutes(),
+        second: jsDate.getSeconds()
+    }, { zone: 'UTC' }); 
+} 

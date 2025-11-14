@@ -1,10 +1,14 @@
 import ical from 'ical-generator';
+import { DateTime } from 'luxon';
 import {
     parseClass,
     parseAllClassNames, 
 
     Class, 
-    Component
+    Component,
+
+    toICSLocalDateTimeString,
+    toFloatingLuxon
 } from './helper.js';
 
 var filename = 'calendar.ics'
@@ -193,16 +197,35 @@ document.getElementById("scrape-btn").addEventListener("click", async () => {
                 currentCal = cals.get(component_);
             }
 
+            // Using luxon datetime in floating mode  with UTC (this removes any tz info)
+            // I am doing this to prevent Daylight saving from shifting events time because of the recurring nature
+            // Essentially, the calendar app will apply DST rule for recurring events unless the DSTART is floating.
+            // I am using luxon to remove the time zone meta date (using UTC, as it does not follow any DST)
+            // (I had tried directly setting the timezone: 'UTC' for ical-generator and it didn't seem to work)
+
+            // While this works, it required luxon as another dependency
+            // (I tried just passing a datestring literal like YYYYMMDDTHHMMSS, but ican-generator will just
+            // pass it to JS DateTime object internally... )
+            // Would be better if I could find some other workaround, that does not need an extra dependency
+            // It's fine for now i guess
+
+            const start = toFloatingLuxon(component.getStart());
+            const end   = toFloatingLuxon(component.getEnd());
+            const until = toFloatingLuxon(
+                Component.toDateObject(component.getEndDate(), component.getLanguage())
+            );
+
             currentCal.createEvent({
-                start: component.getStart(),
-                end: component.getEnd(),
+                start: start,
+                end: end,
                 summary: eventName, //cls.getCourseName(), //+ component.component,       
                 description: component.instructor, 
                 location:  component.room, 
+                floating: true,
                 repeating: {
                     freq: 'WEEKLY',         
                     interval: 1,            
-                    until: Component.toDateObject(component.getEndDate(), component.getLanguage())
+                    until: until 
                 }
             });
 
