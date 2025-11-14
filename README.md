@@ -101,6 +101,12 @@ If you'd like to build it yourself or contribute to the development and maintena
 
 ### Get Started
 This will install all the necessary dependencies.
+uOCal has 2 dependencies:
+1. Webpack _(dev dependency)_
+  - Used to bundle the `ical-generator` library into a single `dist/popup.bundle.js` file.
+2. [ical-generator](https://github.com/sebbo2002/ical-generator) _(regular dependency)_
+  - Provides functionality to create and manage iCalendar (.ics) files.
+  - Bundled into `dist/popup.bundle.js` so it's available in the extension at runtime.
 ```
 npm install
 ```
